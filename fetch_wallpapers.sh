@@ -40,12 +40,12 @@ DOWNLOADDIR="$4"
 if [[ -z "$CATEGORY" || -z "$RESOLUTION" || -z "$PAGES" || -z "$DOWNLOADDIR" ]]; then echo $USAGE ; exit
 
 else
-if [ "$PAGES" -gt 1 ]; then
+    if [ "$PAGES" -gt 1 ]; then
 
-for x in `seq 1 $PAGES` ; do curl -s $SITE/catalog/$CATEGORY/page$x/ | grep "wallpapers__link"  | awk -F'"' '{print $4"/'$RESOLUTION'/"}'  | sed 's/wallpaper/download/g'  | awk '{print "'$SITE'" $0}' | xargs curl -s | grep Download | grep href | awk -F'"' '{print $4}' | xargs wget -nc -P $DOWNLOADDIR; done
+        for x in `seq 1 $PAGES` ; do curl -s $SITE/catalog/$CATEGORY/page$x/ | grep "wallpapers__link"  | awk -F'"' '{print $4"/'$RESOLUTION'/"}'  | sed 's/wallpaper/download/g'  | awk '{print "'$SITE'" $0}' | xargs curl -s | grep Download | grep href | awk -F'"' '{print $4}' | xargs wget -nc -P $DOWNLOADDIR; done
 
-else
+    else
 
-curl -s $SITE/catalog/$CATEGORY/page1/ | grep "wallpapers__link"  | awk -F'"' '{print $4"/'$RESOLUTION'/"}'  | sed 's/wallpaper/download/g'  | awk '{print "'$SITE'" $0}' | xargs curl -s | grep Download | grep href | awk -F'"' '{print $4}' | xargs wget -nc -P $DOWNLOADDIR
-fi
+        curl -s $SITE/catalog/$CATEGORY/page1/ | grep "wallpapers__link"  | awk -F'"' '{print $4"/'$RESOLUTION'/"}'  | sed 's/wallpaper/download/g'  | awk '{print "'$SITE'" $0}' | xargs curl -s | grep Download | grep href | awk -F'"' '{print $4}' | xargs wget -nc -P $DOWNLOADDIR
+    fi
 fi
