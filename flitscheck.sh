@@ -1,4 +1,5 @@
 #!/bin/bash
+
 DATE=$(date "+%a, %b %d")
 ROAD1="A1"
 ROAD2="A35"
